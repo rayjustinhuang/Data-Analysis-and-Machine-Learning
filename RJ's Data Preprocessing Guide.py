@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Spyder Editor
+Created on Wed Apr 19 18:12:28 2017
 
-This is a temporary script file.
+@author: Justin
 """
 
 # Data Preprocessing
