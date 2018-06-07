@@ -7,6 +7,7 @@ Created on Tue Jun  5 07:35:15 2018
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+import string
 
 
 # PerColumnAttributesAdder 
@@ -93,3 +94,27 @@ class Randomizer(BaseEstimator, TransformerMixin):
                 df[self.newcol_names] = np.rint(df[self.cols]*self.randomizercols)
                 self.newcols = df[self.newcol_names]
                 return df
+            
+            
+# StringCleaner
+# Used to clean columns containing strings
+class StringCleaner(BaseEstimator, TransformerMixin):
+    def __init__(self, cols, case='lower'):
+        self.cols = cols
+        self.case = case
+    
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X, y=None):
+        df = X.copy()
+        df[self.cols] = df[self.cols].str.replace('[{}]'.format(string.punctuation), '')
+        df[self.cols] = df[self.cols].str.strip()
+        if self.case == 'upper':
+            df[self.cols] = df[self.cols].str.upper()
+        elif self.case == 'title':
+            df[self.cols] = df[self.cols].str.title()
+        else:
+            df[self.cols] = df[self.cols].str.lower()
+        return df
+    

@@ -4,7 +4,7 @@ Created on Tue Jun  5 08:02:30 2018
 
 @author: Ray Justin O. Huang
 """
-from Custom_Transformers import PerColumnAttributesAdder, StringCaseChanger, Randomizer
+from Custom_Transformers import PerColumnAttributesAdder, StringCaseChanger, Randomizer, StringCleaner
 import pandas as pd
 import numpy as np
 
@@ -79,3 +79,23 @@ rdm2 = Randomizer(['third', 'fifth'], added_cols=True, integers=True)
 rdm2.fit(sample4)
 
 rdm2.transform(sample4)
+
+
+# Sample dirty string DataFrames
+sample5 = pd.DataFrame({'John': ['P@ssword', 'c@rp', 'Te^&*ting'],
+                        'Mary': ['L*t##e','B!g','M$d*u_'],
+                        'Jane': ['L!^b', 'H@d', 'P@!l']})
+
+# StringCleaner testing
+sample5.head()
+cleaner = StringCleaner('Mary')
+cleaner = StringCleaner('Mary')
+cleaner.transform(sample5)
+# sample5['Mary'].str.replace(string.punctuation, '')
+sample5['Mary'].str.replace('[{}]'.format(string.punctuation), '')
+# sample5['Mary'].str.translate(None, string.punctuation)
+sample5.info()
+sample5['Mary'].str.lower()
+
+cleaner2 = StringCleaner('John')
+cleaner2.transform(sample5)
