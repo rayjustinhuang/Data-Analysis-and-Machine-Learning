@@ -4,9 +4,10 @@ Created on Tue Jun  5 08:02:30 2018
 
 @author: Ray Justin O. Huang
 """
-from Custom_Transformers import PerColumnAttributesAdder, StringCaseChanger, Randomizer, StringCleaner
+from Custom_Transformers import PerColumnAttributesAdder, StringCaseChanger, Randomizer, StringCleaner, GroupAggregator
 import pandas as pd
 import numpy as np
+import string
 
 
 # Sample DataFrames    
@@ -86,6 +87,7 @@ sample5 = pd.DataFrame({'John': ['P@ssword', 'c@rp', 'Te^&*ting'],
                         'Mary': ['L*t##e','B!g','M$d*u_'],
                         'Jane': ['L!^b', 'H@d', 'P@!l']})
 
+
 # StringCleaner testing
 sample5.head()
 cleaner = StringCleaner('Mary')
@@ -94,8 +96,24 @@ cleaner.transform(sample5)
 # sample5['Mary'].str.replace(string.punctuation, '')
 sample5['Mary'].str.replace('[{}]'.format(string.punctuation), '')
 # sample5['Mary'].str.translate(None, string.punctuation)
+sample5['Mary'].str.translate({string.punctuation: None})
 sample5.info()
 sample5['Mary'].str.lower()
 
 cleaner2 = StringCleaner('John')
 cleaner2.transform(sample5)
+
+
+# Sample grouping DataFrames
+sample6 = pd.DataFrame({'Customer': ['Customer A', 'Customer A', 'Customer A',
+                                     'Customer B', 'Customer B', 'Customer B',],
+                        'Product': ['Product A', 'Product B', 'Product B',
+                                    'Product A', 'Product C', 'Product A'],
+                        'Price': [10, 15, 17, 8, 20, 7]})
+
+
+# GroupAggregator testing
+sample6.head()
+grouper = GroupAggregator('Customer', np.median)
+grouper.transform(sample6)
+sample6.groupby('Customer').transform(np.mean)

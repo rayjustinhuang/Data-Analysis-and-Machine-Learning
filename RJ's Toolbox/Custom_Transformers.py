@@ -118,3 +118,18 @@ class StringCleaner(BaseEstimator, TransformerMixin):
             df[self.cols] = df[self.cols].str.lower()
         return df
     
+
+# GroupAggregator
+# Used to add aggregate statistics to a dataframe
+class GroupAggregator(BaseEstimator, TransformerMixin):
+    def __init__(self, groupby_col, operation=np.sum):
+        self.groupby_col = groupby_col
+        self.operation = operation
+        
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X, y=None):
+        df = X.copy()
+        grouped = df.groupby(self.groupby_col)
+        return grouped.transform(self.operation)
