@@ -39,8 +39,7 @@ for c1 in cities:
     
 # Solve model
 model.solve()
-print(model.objective.value())
+print("The optimal cost is", model.objective.value())
 for v in model.variables():
-#    print(v)
     if v.varValue > 0:
         print(v.name, "=", v.varValue)
