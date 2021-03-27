@@ -31,7 +31,7 @@ class PerColumnAttributesAdder(BaseEstimator, TransformerMixin):
 
 
 # StringCaseChanger
-# Used to change the case of a columns that contains strings
+# Used to change the case of a column that contains strings
 class StringCaseChanger(BaseEstimator, TransformerMixin):
     def __init__(self, cols, case='upper'):
         self.case = case
