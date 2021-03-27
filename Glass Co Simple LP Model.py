@@ -5,8 +5,10 @@ Created on Sat Mar 27 15:19:03 2021
 @author: rjlo_
 """
 
+from pulp import *
+
 # Initialize Class
-model = LpProblem("Maximize Glass Co. Profits", LpMaximize)
+model = LpProblem("Maximize_Glass_Co._Profits", LpMaximize)
 
 # Define Decision Variables
 wine = LpVariable('Wine', lowBound=0, upBound=None, cat='Integer')
