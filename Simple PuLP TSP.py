@@ -40,6 +40,15 @@ for c1 in cities:
 # Solve model
 model.solve()
 print("The optimal cost is", model.objective.value())
+
+# Create solution matrix and print valid paths
+solution_matrix = dist.copy()
 for v in model.variables():
+    cell = v.name[3:-1]
+    row, column = cell.split(',_')
+    solution_matrix.iloc[int(row), int(column)] = v.varValue
     if v.varValue > 0:
         print(v.name, "=", v.varValue)
+
+# Print solution matrix
+print(solution_matrix * dist)
