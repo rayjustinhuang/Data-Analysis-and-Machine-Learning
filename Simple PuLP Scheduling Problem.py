@@ -8,7 +8,7 @@ Created on Sun Mar 28 11:14:51 2021
 # Scheduling Problem Example
 from pulp import *
 
-# The class has been initialize, and x, days, and objective function defined
+# The class has been initialized, and x, days, and objective function defined
 
 # Initialize model
 model = LpProblem("MinimizeStaffing", LpMinimize)
